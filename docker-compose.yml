@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: java -jar ./erpapp-0.0.1-SNAPSHOT.jar
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/petshop-app
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=s0me_$trong_p@s$w0rd
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: "petshop-app"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "s0me_$trong_p@s$w0rd"
+    ports:
+      - "5432:5432"
+    restart: always

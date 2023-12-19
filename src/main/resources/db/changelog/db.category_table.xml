@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet logicalFilePath="db.category_table.xml"
+               id="create table category"
+               author="Nik_Romanov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="category"/>
+            </not>
+        </preConditions>
+        <createTable tableName="category" remarks="Product category by type">
+            <column name="ID"
+                    type="BIGINT"
+                    incrementBy="1"
+                    autoIncrement="true"
+                    remarks="Identifier">
+                <constraints primaryKey="true" primaryKeyName="pk_category" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="Name of category" />
+            <column name="description" type="varchar(255)" remarks="Description of category" />
+            <column name="create_dt"
+                    remarks="Create date of record"
+                    type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="change_dt"
+                    remarks="Change date of record"
+                    type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
